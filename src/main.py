@@ -2,7 +2,7 @@ from PIL import Image
 import background
 from zone_builder import build_level, load_level
 
-test_data = load_level("resources/levels/test.json")
+test_data = load_level("resources/levels/r1a1.json")
 
 result = build_level(test_data)
 bg = background.create_background(result.size)

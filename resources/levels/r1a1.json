@@ -3,9 +3,9 @@
     "50": [
       {
         "render": [
-          "test_layout_1",
-          "test_layout_2",
-          "test_layout_3"
+          "geo_64x64_mining_storage_HA_02_room1",
+          "geo_64x64_mining_storage_HA_02_room2",
+          "geo_64x64_mining_storage_HA_02_room3"
         ],
         "position": {
           "x": 0,
@@ -24,7 +24,7 @@
           {
             "image": "weak_door",
             "position": {
-              "x": 309,
+              "x": 311,
               "y": 889
             },
             "rotation": 0
