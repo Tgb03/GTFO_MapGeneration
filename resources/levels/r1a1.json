@@ -45,7 +45,66 @@
             "rotation": 0
           }
         ]
+      },
+      {
+        "render": [
+          "geo_64x64_mining_storage_HA_06_room3",
+          "geo_64x64_mining_storage_HA_06_room6",
+          "geo_64x64_mining_storage_HA_06_room7"
+        ],
+        "door_config": "geo_64x64_mining_storage_HA_06",
+        "position": {
+          "x": 0,
+          "y": 2
+        },
+        "rotation": 0,
+        "items": [
+          {
+            "image": "weak_door",
+            "position": {
+              "x": 1015,
+              "y": 512
+            },
+            "rotation": 0
+          }
+        ]
       }
     ]
+  },
+  "tracked_containers": {
+    "50": {
+      "0": {
+        "position": {
+          "x": 1545,
+          "y": 142
+        },
+        "image": "box",
+        "rotation": 0
+      },
+      "1": {
+        "position": {
+          "x": 1621,
+          "y": 131
+        },
+        "image": "locker",
+        "rotation": 0
+      },
+      "2": {
+        "position": {
+          "x": 1708,
+          "y": 60
+        },
+        "image": "box",
+        "rotation": 0
+      },
+      "3": {
+        "position": {
+          "x": 1729,
+          "y": 132
+        },
+        "image": "locker",
+        "rotation": 0
+      }
+    }
   }
 }

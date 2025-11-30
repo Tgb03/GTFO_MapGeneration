@@ -60,6 +60,128 @@
       ]
     }
   ],
+  "geo_64x64_mining_storage_HA_06": [
+    {
+      "include": [
+        "geo_64x64_mining_storage_HA_06_room1",
+        "geo_64x64_mining_storage_HA_06_room2"
+      ],
+      "doors": [
+        {
+          "position": {
+            "x": 644,
+            "y": 424
+          },
+          "rotation": 90
+        }
+      ]
+    },
+    {
+      "include": [
+        "geo_64x64_mining_storage_HA_06_room1",
+        "geo_64x64_mining_storage_HA_06_room4"
+      ],
+      "doors": [
+        {
+          "position": {
+            "x": 384,
+            "y": 550
+          },
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "include": [
+        "geo_64x64_mining_storage_HA_06_room1",
+        "geo_64x64_mining_storage_HA_06_room5"
+      ],
+      "doors": [
+        {
+          "position": {
+            "x": 385,
+            "y": 730
+          },
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "include": [
+        "geo_64x64_mining_storage_HA_06_room2",
+        "geo_64x64_mining_storage_HA_06_room3"
+      ],
+      "doors": [
+        {
+          "position": {
+            "x": 456,
+            "y": 169
+          },
+          "rotation": 90
+        }
+      ]
+    },
+    {
+      "include": [
+        "geo_64x64_mining_storage_HA_06_room2",
+        "geo_64x64_mining_storage_HA_06_room7"
+      ],
+      "doors": [
+        {
+          "position": {
+            "x": 864,
+            "y": 274
+          },
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "include": [
+        "geo_64x64_mining_storage_HA_06_room3",
+        "geo_64x64_mining_storage_HA_06_room6"
+      ],
+      "doors": [
+        {
+          "position": {
+            "x": 745,
+            "y": 101
+          },
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "include": [
+        "geo_64x64_mining_storage_HA_06_room4",
+        "geo_64x64_mining_storage_HA_06_room5"
+      ],
+      "doors": [
+        {
+          "position": {
+            "x": 126,
+            "y": 663
+          },
+          "rotation": 90
+        }
+      ]
+    },
+    {
+      "include": [
+        "geo_64x64_mining_storage_HA_06_room6",
+        "geo_64x64_mining_storage_HA_06_room7"
+      ],
+      "doors": [
+        {
+          "position": {
+            "x": 936,
+            "y": 183
+          },
+          "rotation": 90
+        }
+      ]
+    }
+  ],
   "geo_64x64_mining_storage_HA_07": [
     {
       "include": [
