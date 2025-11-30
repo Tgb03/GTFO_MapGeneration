@@ -7,6 +7,7 @@
           "geo_64x64_mining_storage_HA_02_room2",
           "geo_64x64_mining_storage_HA_02_room3"
         ],
+        "door_config": "geo_64x64_mining_storage_HA_02",
         "position": {
           "x": 0,
           "y": 1
@@ -16,42 +17,32 @@
           {
             "image": "weak_door",
             "position": {
-              "x": 309,
-              "y": 684  
-            },
-            "rotation": 0
-          },
-          {
-            "image": "weak_door",
-            "position": {
-              "x": 311,
-              "y": 889
-            },
-            "rotation": 0
-          },
-          {
-            "image": "weak_door",
-            "position": {
-              "x": 348,
-              "y": 49
-            },
-            "rotation": 0
-          },
-          {
-            "image": "weak_door",
-            "position": {
-              "x": 619,
-              "y": 310
+              "x": 512,
+              "y": 1005
             },
             "rotation": 90
-          },
+          }
+        ]
+      },
+      {
+        "render": [
+          "geo_64x64_mining_storage_HA_07_room1",
+          "geo_64x64_mining_storage_HA_07_room3"
+        ],
+        "door_config": "geo_64x64_mining_storage_HA_07",
+        "position": {
+          "x": 1,
+          "y": 1
+        },
+        "rotation": 180,
+        "items": [
           {
             "image": "weak_door",
             "position": {
-              "x": 925,
-              "y": 285
+              "x": 1015,
+              "y": 512
             },
-            "rotation": 90
+            "rotation": 0
           }
         ]
       }

@@ -1,8 +1,20 @@
 
 import json
+import math
 from PIL import Image, ImageDraw
 from typing import Dict, Any
 from pathlib import Path
+
+
+def load_json_data(path: str):
+    path = Path(path)
+    with path.open("r", encoding="utf-8") as f:
+        data = json.load(f)
+    return data
+
+
+door_config = load_json_data("resources/door_config.json")
+
 
 class ZoneRender:
     def __init__(self, image, position):
@@ -25,13 +37,6 @@ def load_room_layout(name: str) -> Image.Image:
 def load_item_image(name: str) -> Image.Image:
     path = Path(f"resources/items/{name}.png")
     return Image.open(path).convert("RGBA")
-
-
-def load_level(path: str):
-    path = Path(path)
-    with path.open("r", encoding="utf-8") as f:
-        data = json.load(f)
-    return data
     
 
 def build_level(data: Dict[str, Any]) -> Image.Image:
@@ -72,33 +77,74 @@ def build_level(data: Dict[str, Any]) -> Image.Image:
     return final_img
 
 
+def rotate_point_around_pivot(px, py, pivot_x, pivot_y, angle_deg):
+    """
+    Rotate a point (px, py) around (pivot_x, pivot_y) by angle_deg (counterclockwise)
+    """
+    angle_rad = math.radians(angle_deg)
+    # vector from pivot to point
+    dx = px - pivot_x
+    dy = py - pivot_y
+    # rotate vector
+    rx = dx * math.cos(angle_rad) - dy * math.sin(angle_rad)
+    ry = dx * math.sin(angle_rad) + dy * math.cos(angle_rad)
+    # translate back
+    return int(pivot_x + rx), int(pivot_y + ry)
+
+
+def draw_item(image, item_img, item, zone_rotation):
+    item_rotation = item.get("rotation", 0)
+    if item_rotation != 0:
+        item_img = item_img.rotate(-item_rotation, expand=True)
+    
+    # Original item position
+    pos = item["position"]
+    x = pos["x"]
+    y = pos["y"]
+    
+    # Rotate the item around zone center
+    if zone_rotation != 0:
+        x, y = rotate_point_around_pivot(x, y, 512, 512, zone_rotation)
+    
+    # Adjust for rotated image size
+    x -= item_img.width // 2
+    y -= item_img.height // 2
+
+    image.alpha_composite(item_img, (int(x), int(y)))
+
+
 def build_zone(data: Dict[str, Any]) -> ZoneRender:
     img = Image.new("RGBA", (1024, 1024), (0, 0, 0, 0))
-    draw = ImageDraw.Draw(img)
     
-    # Draw each room layout (background layers)
+    zone_rotation = data.get("rotation", 0)  # rotation of the zone
+
+    # Draw each room layout (background)
     for layout_name in data["render"]:
         room_img = load_room_layout(layout_name)
+        if zone_rotation != 0:
+            room_img = room_img.rotate(-zone_rotation, expand=True)
         img.alpha_composite(room_img, (0, 0))
+        
+    for check in door_config.get(data["door_config"], []):
+        render_doors = True
+        
+        for door_checked in check["include"]:
+            # Check if at least one render name starts with door_checked
+            if not any(render_name.startswith(door_checked) for render_name in data["render"]):
+                render_doors = False
+                break   # no need to check other include items
+        
+        if render_doors:
+            door_img = load_item_image("weak_door")
+            for door in check["doors"]:
+                draw_item(img, door_img, door, zone_rotation)
+                
     
-    # Draw items (foreground objects)
+    # Draw items (foreground)
     for item in data.get("items", []):
         item_img = load_item_image(item["image"])
-
-        # Rotation: Pillow rotates counterclockwise; expand keeps image bounds correct
-        rotation = item.get("rotation", 0)   # if rotation is 0/90/180/270
-        if rotation != 0:
-            item_img = item_img.rotate(-rotation, expand=True)
-
-        # Position
-        pos = item["position"]
-        x = pos["x"]
-        y = pos["y"]
-
-        img.alpha_composite(item_img, (x, y))
+        draw_item(img, item_img, item, zone_rotation)
     
-    # World position of the zone
     world_pos = (data["position"]["x"], data["position"]["y"])
-    
     return ZoneRender(img, world_pos)
         
