@@ -4,6 +4,7 @@ spacing = 6.4
 line_width = spacing / 32
 crosshair_size = 5 * 6.4 / 128
 
+
 def apply_grid_background(svg_text):
     """
     Apply a repeating grid background to an SVG and anchor the pattern
@@ -33,7 +34,7 @@ def apply_grid_background(svg_text):
     pattern_svg = f"""
   <defs>
     <pattern id="gridPattern"
-             x="{view_min_x}" 
+             x="{view_min_x}"
              y="{view_min_y}"
              width="{spacing}" height="{spacing}"
              patternUnits="userSpaceOnUse"
@@ -59,15 +60,12 @@ def apply_grid_background(svg_text):
 
     # --- Insert pattern + background rectangle ---
     insertion = (
-        pattern_svg +
-        "\n  <rect width='100%' height='100%' fill='url(#gridPattern)'/>\n"
+        pattern_svg
+        + "\n  <rect width='100%' height='100%' fill='url(#gridPattern)'/>\n"
     )
 
     svg_text = re.sub(
-        r"(<svg[^>]*>)",
-        lambda m: m.group(1) + insertion,
-        svg_text,
-        count=1
+        r"(<svg[^>]*>)", lambda m: m.group(1) + insertion, svg_text, count=1
     )
 
     return svg_text

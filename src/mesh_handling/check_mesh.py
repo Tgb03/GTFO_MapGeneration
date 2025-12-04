@@ -1,9 +1,8 @@
-
-import webbrowser
 import tempfile
+import webbrowser
 
-from src.mesh_handling.svg import get_svg
 from src.data_loading.deserializer import load_data_binary
+from src.mesh_handling.svg import get_svg
 
 result = load_data_binary("resources/levels/R8E3_7.bin")
 if result is None:
