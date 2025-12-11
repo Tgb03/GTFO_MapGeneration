@@ -21,7 +21,7 @@ verts[:, 1] = 0.0
 
 # show_mesh(verts, tris)
 
-svg = get_svg(verts, tris, items)
+svg = get_svg(verts, tris)
 
 print("started writing")
 
