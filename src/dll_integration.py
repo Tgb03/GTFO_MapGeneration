@@ -55,6 +55,7 @@ marker_set = 0
 level_name = ""
 
 
+automatic_render = False
 counter_containers = {}
 
 
@@ -181,7 +182,8 @@ def my_event_callback(_context, message):
             marker_set = hex_string[-16:]
 
         if "GenerationEnd" in data:
-            # do_everything()
+            if automatic_render:
+                do_everything()
             pass
 
 
