@@ -14,14 +14,14 @@ This is in theory the true successor of WardenMapper. Kind of.
 1. Download the project as a ZIP file and unzip it where you want to have it.
 2. Install Python
 3. Open a CMD in the project root folder
-4. Run `pip install -r requirements.txt`
+4. Run either `py -m pip install -r requirements.txt` or `pip install -r requirements.txt` (first method via `py` launcher is preferrable on windows 10/11)
 
 If this command fails make sure pip installed and the environment variables are set for both Python and pip.
 
 ## How to generate container/cell maps
 
 1. Open a CMD in the project root folder.
-2. Run `python -m src.show_containers <level_name>`
+2. Run `py -m src.show_containers <level_name>` or `python -m src.show_containers <level_name>`
 
 Optionally you can directly specify a marker set hash and with these tags u can set which things are shown:
 
@@ -37,9 +37,16 @@ Optionally you can directly specify a marker set hash and with these tags u can 
 This works by reading the game's log file with your current level and seed. Similar to Foresight in Logger.
 
 1. Open a CMD in the project root folder.
-2. Run `python -m src.main`
+2. Run `py -m src.main` or `python -m src.main`
 
 From now on the app runs in the background and awaits for you to press the hotkey `ctrl-shift-a` to generate the maps for your current level. Beware some specific stuff is not shown properly. You may still need to use the Logger to see which key is for which door in some levels or terminals, hsus etc.
+
+### Issues
+I: Sometimes pressing hotkey `Ctrl-Shift-A` does not open the file in browser or the dialog.\
+S: Make sure your default app for `svg` file extension is set to your preferred image viewer (default windows/IrfanView or your preferred browser)
+> Screenshots provided for `Win 11`.
+![default file](media/default_file.png)
+![select default for svg](media/select_default_for_svg.png)
 
 Optionally you can also customize the exact behaviour of this:
 
@@ -48,4 +55,3 @@ Optionally you can also customize the exact behaviour of this:
 | -h | shows the help message |
 | -k HOTKEY | modify the hotkey to whatever you want |
 | -a | automatically render the maps when a seed is found, beware if you are resetting a lot it might cause issues with performance |
-
