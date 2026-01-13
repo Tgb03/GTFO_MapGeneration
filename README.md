@@ -31,6 +31,7 @@ Optionally you can directly specify a marker set hash and with these tags u can 
 | -c | disables showing containers, these are enabled by default |
 | -s | shows small pickups |
 | -b | shows big pickups |
+| -t [TEXT_SIZE] | change the text size |  
 
 ## How to generate resource maps for ur current level
 
