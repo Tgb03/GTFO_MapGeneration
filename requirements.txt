@@ -3,5 +3,4 @@ lxml
 numpy
 pillow
 shapely
-argparse
 regex
