@@ -10,6 +10,7 @@ from src.data_loading.level import load_level
 from src.mesh_handling.load_mesh import get_bounds_svg, get_bounds_svg_multi
 from src.mesh_handling.svg import add_item
 from src.page_generator.open_generated import open_generated_svg
+from src.show_containers import add_text
 
 dll_relative_path = "../resources/gtfo_log_reader_core_64bit.dll"
 log_folder_path = str(
@@ -54,6 +55,7 @@ level_name = ""
 
 
 automatic_render = False
+show_key_names = True
 counter_containers = {}
 
 
@@ -109,8 +111,8 @@ def do_everything():
         bounds = get_bounds_svg_multi(level_data["meshes"][i])
 
         for item_spawn in tracked_container_spawns:
-            name, zone, id = item_spawn
-            name = convert_name(name)
+            old_name, zone, id = item_spawn
+            name = convert_name(old_name)
 
             data = get_data_from_arrs(
                 container_map, 
@@ -135,6 +137,10 @@ def do_everything():
             pos = (pos_x, pos_y)
 
             svg = add_item(svg, name, pos, data["rotation"], bounds)
+            
+            if name == "Key0":
+                pos_y += 10
+                svg = add_text(svg, (pos_x, pos_y), bounds, old_name, 1)
             
         for item_spawn in tracked_small_pickup_spawns:
             name, zone, id = item_spawn
