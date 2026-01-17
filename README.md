@@ -32,6 +32,7 @@ Optionally you can directly specify a marker set hash and with these tags u can 
 | -s | shows small pickups |
 | -b | shows big pickups |
 | -t [TEXT_SIZE] | change the text size |  
+| -i | Hide images and just put the text where the container is |  
 
 ## How to generate resource maps for ur current level
 
@@ -42,13 +43,6 @@ This works by reading the game's log file with your current level and seed. Simi
 
 From now on the app runs in the background and awaits for you to press the hotkey `ctrl-shift-a` to generate the maps for your current level. Beware some specific stuff is not shown properly. You may still need to use the Logger to see which key is for which door in some levels or terminals, hsus etc.
 
-### Issues
-I: Sometimes pressing hotkey `Ctrl-Shift-A` does not open the file in browser or the dialog.\
-S: Make sure your default app for `svg` file extension is set to your preferred image viewer (default windows/IrfanView or your preferred browser)
-> Screenshots provided for `Win 11`.
-![default file](media/default_file.png)
-![select default for svg](media/select_default_for_svg.png)
-
 Optionally you can also customize the exact behaviour of this:
 
 | Argument | Effect |
@@ -56,3 +50,10 @@ Optionally you can also customize the exact behaviour of this:
 | -h | shows the help message |
 | -k HOTKEY | modify the hotkey to whatever you want |
 | -a | automatically render the maps when a seed is found, beware if you are resetting a lot it might cause issues with performance |
+
+### Issues
+I: Sometimes pressing hotkey `Ctrl-Shift-A` does not open the file in browser or the dialog.\
+S: Make sure your default app for `svg` file extension is set to your preferred image viewer (default windows/IrfanView or your preferred browser)
+> Screenshots provided for `Win 11`.
+![default file](media/default_file.png)
+![select default for svg](media/select_default_for_svg.png)

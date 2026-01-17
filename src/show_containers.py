@@ -3,7 +3,7 @@ import os
 
 from src.data_loading.item import load_item_svg
 from src.data_loading.level import load_level
-from src.mesh_handling.load_mesh import get_bounds_svg, get_bounds_svg_multi, to_svg_pos
+from src.mesh_handling.load_mesh import get_bounds_svg_multi, to_svg_pos
 from src.mesh_handling.svg import add_item, extract_inner_svg
 from src.page_generator.open_generated import open_generated_svg
 
@@ -79,6 +79,7 @@ def main():
     parser.add_argument("-s", "--small-pickup-show", action="store_true", default=False, help="show small pickups")
     parser.add_argument("-b", "--big-pickup-show", action="store_true", default=False, help="show big pickups")
     parser.add_argument("-t", "--text-size", type=float, nargs="?", default=1, help="change the text size")
+    parser.add_argument("-i", "--hide-images", action="store_true", default=False, help="Hide images and just put the text where the container is")
 
     args = parser.parse_args()
     
@@ -89,6 +90,7 @@ def main():
     show_small_pickups = args.small_pickup_show
     show_big_pickups = args.big_pickup_show
     text_size = args.text_size
+    hide_images = args.hide_images
 
     level_data = load_level(level_name, marker)
     if level_data is None:
@@ -114,8 +116,11 @@ def main():
                     pos = container["position"]
                     name = container["image"].split("_")[0]
     
-                    svg = add_item(svg, name, pos, 0, bounds)
-                    pos = (pos[0], pos[1] + 10)
+                    if not hide_images:
+                        svg = add_item(svg, name, pos, 0, bounds)
+                        pos = (pos[0], pos[1] + 1)
+                    
+                    pos = (pos[0], pos[1] + 9)
                     svg = add_text(svg, pos, bounds, str(id), text_size)
 
         if show_small_pickups:
@@ -124,8 +129,11 @@ def main():
                     pos = pickup["position"]
                     name = "small_pickup"
     
-                    svg = add_item(svg, name, pos, 0, bounds)
-                    pos = (pos[0], pos[1] + 10)
+                    if not hide_images:
+                        svg = add_item(svg, name, pos, 0, bounds)
+                        pos = (pos[0], pos[1] + 1)
+                        
+                    pos = (pos[0], pos[1] + 9)
                     svg = add_text(svg, pos, bounds, str(id), text_size)
 
         if show_big_pickups:
@@ -134,8 +142,11 @@ def main():
                     pos = pickup["position"]
                     name = "big_pickup"
     
-                    svg = add_item(svg, name, pos, 0, bounds)
-                    pos = (pos[0], pos[1] + 10)
+                    if not hide_images:
+                        svg = add_item(svg, name, pos, 0, bounds)
+                        pos = (pos[0], pos[1] + 1)
+                        
+                    pos = (pos[0], pos[1] + 9)
                     svg = add_text(svg, pos, bounds, str(id), text_size)
 
         open_generated_svg(svg)

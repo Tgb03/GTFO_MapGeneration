@@ -7,7 +7,7 @@ from typing import Any
 
 from src.data_loading.item_name_convert import convert_name, reset_keys
 from src.data_loading.level import load_level
-from src.mesh_handling.load_mesh import get_bounds_svg, get_bounds_svg_multi
+from src.mesh_handling.load_mesh import get_bounds_svg_multi
 from src.mesh_handling.svg import add_item
 from src.page_generator.open_generated import open_generated_svg
 from src.show_containers import add_text
