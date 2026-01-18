@@ -56,6 +56,7 @@ level_name = ""
 
 automatic_render = False
 show_key_names = True
+force_dimension_render = None
 counter_containers = {}
 
 
@@ -107,6 +108,9 @@ def do_everything():
     counter_containers = {}
 
     for i in range(len(level_data["dimensions_svgs"])):
+        if force_dimension_render is not None and force_dimension_render != i:
+            continue
+        
         svg = level_data["dimensions_svgs"][i][:]
         bounds = get_bounds_svg_multi(level_data["meshes"][i])
 

@@ -50,6 +50,7 @@ Optionally you can also customize the exact behaviour of this:
 | -h | shows the help message |
 | -k HOTKEY | modify the hotkey to whatever you want |
 | -a | automatically render the maps when a seed is found, beware if you are resetting a lot it might cause issues with performance |
+| -d DIMENSION_ID | only render a specific dimension, useful for levels like r8e2 where only 1 dimension is useful while 3 exist |
 
 ### Issues
 I: Sometimes pressing hotkey `Ctrl-Shift-A` does not open the file in browser or the dialog.\
