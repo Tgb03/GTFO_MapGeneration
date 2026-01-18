@@ -50,7 +50,10 @@ Optionally you can also customize the exact behaviour of this:
 | -h | shows the help message |
 | -k HOTKEY | modify the hotkey to whatever you want |
 | -a | automatically render the maps when a seed is found, beware if you are resetting a lot it might cause issues with performance |
+| -r | stop the app from automatically reopening the generated map every time, it will open it only once and you will have to manually refresh your tab |
 | -d DIMENSION_ID | only render a specific dimension, useful for levels like r8e2 where only 1 dimension is useful while 3 exist |
+
+I really recommend using `-a` only with `-r` as `-r` allows u to just refresh the browser tab you want.
 
 ### Issues
 I: Sometimes pressing hotkey `Ctrl-Shift-A` does not open the file in browser or the dialog.\

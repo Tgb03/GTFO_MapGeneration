@@ -5,6 +5,8 @@ import time
 
 BASE_DIR = Path(tempfile.gettempdir()) / "live_gtfo_svgs"
 BASE_DIR.mkdir(exist_ok=True)
+id_set = set()
+reopen = True
 
 def open_generated_svg(svg: str, id):
     svg_path = BASE_DIR / f"live_{id}.svg"
@@ -12,4 +14,6 @@ def open_generated_svg(svg: str, id):
 
     # Cache buster so browser reloads
     url = f"file://{svg_path}?t={time.time()}"
-    webbrowser.open(url)
+    if reopen or id not in id_set:
+        id_set.add(id)
+        webbrowser.open(url)
