@@ -190,7 +190,7 @@ def do_everything():
 
             svg = add_item(svg, name, data["position"], data["rotation"], bounds)
 
-        open_generated_svg(svg)
+        open_generated_svg(svg, i)
 
 
 # 4. Implement a Python callback function

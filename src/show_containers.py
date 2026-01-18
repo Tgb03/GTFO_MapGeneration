@@ -149,7 +149,7 @@ def main():
                     pos = (pos[0], pos[1] + 9)
                     svg = add_text(svg, pos, bounds, str(id), text_size)
 
-        open_generated_svg(svg)
+        open_generated_svg(svg, i)
 
 
 if __name__ == "__main__":
