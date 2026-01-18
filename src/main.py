@@ -22,7 +22,8 @@ def main():
     
     hotkey = args.hotkey
     dll_integration.automatic_render = args.automatic_render
-    dll_integration.force_dimension_render = int(args.dimension_shown)
+    if args.dimension_shown is not None:
+        dll_integration.force_dimension_render = int(args.dimension_shown)
     
     keyboard.add_hotkey(hotkey=hotkey, callback=on_hotkey)
     
