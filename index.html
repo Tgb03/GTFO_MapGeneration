@@ -37,14 +37,8 @@
         <script>
             /* ---------- GET ID FROM URL ---------- */
             const params = new URLSearchParams(window.location.search);
-            const id = params.get("id");
+            const id = params.get("id") || 0;
             const tickrate = params.get("tickrate") || 2000;
-
-            if (!id) {
-                document.body.innerHTML =
-                    "<h2 style='color:white'>Missing ?id=...</h2>";
-                throw new Error("Missing SVG id");
-            }
 
             /* ---------- STATE ---------- */
             let scale = 1;

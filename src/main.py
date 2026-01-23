@@ -15,11 +15,11 @@ def on_hotkey():
     do_everything()
     
 
-def run_server():
+def run_server(ip = "127.0.0.1", port=8000):
     serve(
         app,
-        host="127.0.0.1",
-        port=8000,
+        host=ip,
+        port=port,
     )
 
 
@@ -32,9 +32,12 @@ def main():
     parser.add_argument("-d", "--dimension-shown", default=None, help="Show only a specific dimension, first is dimension 0")
     parser.add_argument("-s", "--use-server", default=False, action="store_true", help="Render stuff on a nicer looking html server")
     parser.add_argument("-t", "--tickrate", default=2000, help="Milliseconds in between each update check for the server")
+    parser.add_argument("-p", "--port", default=8000, help="Port used by the server")
+    parser.add_argument("--ip", default="127.0.0.1", help="IP used by the server")
 
     args = parser.parse_args()
     
+    open_generated.port = args.port
     open_generated.use_html_server = args.use_server
     hotkey = args.hotkey
     dll_integration.automatic_render = args.automatic_render
@@ -45,7 +48,7 @@ def main():
     if args.dimension_shown is not None:
         dll_integration.force_dimension_render = int(args.dimension_shown)
     
-    t = Process(target = run_server)
+    t = Process(target = run_server, args=["0.0.0.0", args.port])
     if args.automatic_render is False:
         keyboard.add_hotkey(hotkey=hotkey, callback=on_hotkey)
     if args.use_server:
