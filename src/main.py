@@ -8,6 +8,7 @@ from src import dll_integration
 from src.dll_integration import do_everything, start_dll_thread
 from src.page_generator import open_generated
 from multiprocessing import Process
+from waitress import serve
 
 
 def on_hotkey():
@@ -15,11 +16,10 @@ def on_hotkey():
     
 
 def run_server():
-    app.run(
+    serve(
+        app,
         host="127.0.0.1",
         port=8000,
-        debug=False,
-        use_reloader=False
     )
 
 

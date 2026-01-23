@@ -17,14 +17,3 @@ def current_svg(id):
 def update_svg(id):
     SVG_DATA[id] = request.data.decode("utf-8")
     return "OK"
-    
-def shutdown_server():
-    func = request.environ.get('werkzeug.server.shutdown')
-    if func is None:
-        raise RuntimeError('Not running with the Werkzeug Server')
-    func()
-    
-@app.get('/shutdown')
-def shutdown():
-    shutdown_server()
-    return 'Server shutting down...'
