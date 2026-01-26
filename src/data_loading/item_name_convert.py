@@ -5,7 +5,8 @@ name_dict = {
     "ArtifactContainer": "artifact",
     "ConsumableContainer": "consumable",
     "ArtifactWorldspawn": "artifact", 
-    "ConsumableWorldspawn": "consumable"
+    "ConsumableWorldspawn": "consumable",
+    "DATA_SPHERE": "RetrieveBigItems", 
 }
 
 
