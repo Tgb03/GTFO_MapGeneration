@@ -67,3 +67,6 @@ S: Make sure your default app for `svg` file extension is set to your preferred 
 > Screenshots provided for `Win 11`.
 ![default file](media/default_file.png)
 ![select default for svg](media/select_default_for_svg.png)
+
+### Credits
+- The better looking icons are made by RandomKenny
