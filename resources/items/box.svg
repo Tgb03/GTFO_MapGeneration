@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 137 82">            
-        <g transform="translate(-0.25, -0.25) scale(0.006, 0.006)" id="Layer_54">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 137 82">            
+        <g transform="translate(-0.25, -0.25) scale(0.006, 0.006)">
             <rect fill="#2e3b43" y="19" width="137" height="45"/>
             <g opacity=".5">
                 <polygon fill="#ff7518" points="65.19 63 111.58 22 94.26 22 47.87 63 65.19 63"/>

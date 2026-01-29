@@ -137,7 +137,7 @@ def do_everything():
 
             counter_containers.setdefault(i, {}).setdefault(zone, {})[id] = offset + 1
             pos_x, pos_y = data["position"]
-            pos_x += offset
+            pos_x += offset * 1.6
             pos = (pos_x, pos_y)
 
             svg = add_item(svg, name, pos, data["rotation"], bounds)

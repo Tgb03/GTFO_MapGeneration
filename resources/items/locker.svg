@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 256">
-    <g id="Layer_53" transform="translate(-0.25, -0.6) scale(0.006, 0.006)">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 256">
+    <g transform="translate(-0.25, -0.6) scale(0.006, 0.006)">
         <rect fill="#2e3b43" x="2" width="151" height="256" rx="53.56" ry="53.56"/>
         <g>
             <path fill="#ff7518" d="M45,144v-29h28V0H20.17C9.03,0,0,9.03,0,20.17V235.83c0,11.14,9.03,20.17,20.17,20.17h52.83v-112h-28Z"/>
