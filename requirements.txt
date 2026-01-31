@@ -4,6 +4,6 @@ numpy
 pillow
 shapely
 regex
-flask
-waitress
 requests
+fastapi
+uvicorn

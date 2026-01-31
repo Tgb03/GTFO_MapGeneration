@@ -53,7 +53,6 @@ Optionally you can also customize the exact behaviour of this:
 | -r | stop the app from automatically reopening the generated map every time, it will open it only once and you will have to manually refresh your tab |
 | -d DIMENSION_ID | only render a specific dimension, useful for levels like r8e2 where only 1 dimension is useful while 3 exist |
 | -s | use an automatically updating server - try it out as it might be the best |
-| -t | milliseconds in between each update check for the server, too low might lead to performance issues |
 | --ip | ip used by the server, default is "127.0.0.1" which does not allow external connections AT ALL. "0.0.0.0" does if u want to use your phone to view it |
 | -p | port used by the server, default is 8000 |
 

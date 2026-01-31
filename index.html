@@ -38,7 +38,7 @@
             /* ---------- GET ID FROM URL ---------- */
             const params = new URLSearchParams(window.location.search);
             const id = params.get("id") || 0;
-            const tickrate = params.get("tickrate") || 2000;
+            const evtSource = new EventSource("/events");
 
             /* ---------- STATE ---------- */
             let scale = 1;
@@ -105,6 +105,11 @@
                 },
                 { passive: false },
             );
+            
+            evtSource.addEventListener("svg", e => {
+                const msg = JSON.parse(e.data);
+                if (msg.id == id) svgHost.innerHTML = msg.svg;
+            });
 
             async function poll() {
                 const res = await fetch(
@@ -119,7 +124,6 @@
             }
 
             poll()
-            setInterval(poll, tickrate);
         </script>
     </body>
 </html>

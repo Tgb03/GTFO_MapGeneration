@@ -6,7 +6,6 @@ import requests
 
 use_html_server = False
 reopen = True
-tickrate = 2000
 ip = "127.0.0.1"
 port = 8000
 
@@ -18,7 +17,7 @@ def open_generated_svg(svg: str, id):
     if use_html_server:
         if id not in id_set:
             id_set.add(id)
-            webbrowser.open(f"http://{ip}:{port}/?id={id}&tickrate={tickrate}")
+            webbrowser.open(f"http://{ip}:{port}/?id={id}")
         requests.post(f"http://{ip}:{port}/svg/{id}", data=svg)
         return
         
