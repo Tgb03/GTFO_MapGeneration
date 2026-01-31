@@ -35,10 +35,18 @@
         </div>
 
         <script>
+            // Get the current host and port dynamically
+            const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+            const host = window.location.host; // includes hostname:port if non-default
+            
+            // Build URL
+            const wsUrl = `${protocol}://${host}/ws`;
+            
             /* ---------- GET ID FROM URL ---------- */
             const params = new URLSearchParams(window.location.search);
             const id = params.get("id") || 0;
             const evtSource = new EventSource("/events");
+            const ws = new WebSocket("ws://127.0.0.1:8000/ws");
 
             /* ---------- STATE ---------- */
             let scale = 1;
@@ -106,10 +114,10 @@
                 { passive: false },
             );
             
-            evtSource.addEventListener("svg", e => {
-                const msg = JSON.parse(e.data);
-                if (msg.id == id) svgHost.innerHTML = msg.svg;
-            });
+            ws.onmessage = async () => {
+                const res = await fetch(`/current_svg/${id}`);
+                svgHost.innerHTML = await res.text();
+            };
 
             async function poll() {
                 const res = await fetch(
@@ -118,9 +126,9 @@
                 if (!res.ok) return;
 
                 const svg = await res.text();
-                if (svg.trim()) {
-                    svgHost.innerHTML = svg; // SVG untouched
-                }
+                console.log(svg)
+                if (svg.trim())
+                  svgHost.innerHTML = svg;
             }
 
             poll()

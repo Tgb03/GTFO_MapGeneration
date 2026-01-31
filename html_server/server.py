@@ -1,12 +1,12 @@
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse, StreamingResponse
-import asyncio
+from fastapi import FastAPI, Request, WebSocket
+from fastapi.responses import HTMLResponse, StreamingResponse, PlainTextResponse
 import json
 
 app = FastAPI()
 
 SVG_DATA = {}
-subscribers = set()
+clients = set()
+
 
 @app.get("/")
 async def index():
@@ -14,7 +14,7 @@ async def index():
 
 @app.get("/current_svg/{id}")
 async def current_svg(id: str):
-    return SVG_DATA.get(id, "")
+    return PlainTextResponse(SVG_DATA.get(id, ""))
 
 @app.post("/svg/{id}")
 async def update_svg(id: str, request: Request):
@@ -24,30 +24,19 @@ async def update_svg(id: str, request: Request):
     # Wrap SVG in JSON safely
     payload = json.dumps({"id": id, "svg": svg})
 
-    for q in subscribers:
-        await q.put(payload)
+    for ws in clients:
+        await ws.send_text(payload)
 
     return {"ok": True}
 
 
 
-@app.get("/events")
-async def events():
-    async def event_generator():
-        q = asyncio.Queue()
-        subscribers.add(q)
-        try:
-            while True:
-                data = await q.get()
-                yield f"event: svg\ndata: {data}\n\n"
-        finally:
-            subscribers.remove(q)
-
-    return StreamingResponse(
-        event_generator(),
-        media_type="text/event-stream",
-        headers={
-            "Cache-Control": "no-cache",
-            "Connection": "keep-alive",
-        },
-    )
+@app.websocket("/ws")
+async def ws(ws: WebSocket):
+    await ws.accept()
+    clients.add(ws)
+    try:
+        while True:
+            await ws.receive_text()
+    finally:
+        clients.remove(ws)
