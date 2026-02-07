@@ -217,7 +217,7 @@ def my_event_callback(_context, message):
             name, zone, id = data["Key"]
             if name in {"ArtifactWorldspawn", "ConsumableWorldspawn"}:
                 tracked_small_pickup_spawns.append((name, zone, id))
-            elif name in {"Cell", "CELL", "RetrieveBigItems", "DATA_SPHERE"}:
+            elif name in {"Cell", "CELL", "RetrieveBigItems", "FOG_TURBINE", "DATA_SPHERE"}:
                 tracked_big_pickup_spawns.append((name, zone, id))
             else:
                 tracked_container_spawns.append((name, zone, id))
