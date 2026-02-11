@@ -115,7 +115,10 @@ def do_everything():
         bounds = get_bounds_svg_multi(level_data["meshes"][i])
 
         for item_spawn in tracked_container_spawns:
-            old_name, zone, id = item_spawn
+            old_name, dim_id, zone, id = item_spawn
+            if dim_id != i:
+                continue
+                
             name = convert_name(old_name)
 
             data = get_data_from_arrs(
@@ -147,7 +150,10 @@ def do_everything():
                 svg = add_text(svg, (pos_x, pos_y), bounds, old_name, 1)
             
         for item_spawn in tracked_small_pickup_spawns:
-            name, zone, id = item_spawn
+            name, dim_id, zone, id = item_spawn
+            if dim_id != i:
+                continue
+                
             name = convert_name(name)
 
             data = get_data_from_arrs(
@@ -168,7 +174,10 @@ def do_everything():
             svg = add_item(svg, name, data["position"], data["rotation"], bounds)
             
         for item_spawn in tracked_big_pickup_spawns:
-            name, zone, id = item_spawn
+            name, dim_id, zone, id = item_spawn
+            if dim_id != i:
+                continue
+                
             name = convert_name(name)
 
             data = get_data_from_arrs(
@@ -214,17 +223,17 @@ def my_event_callback(_context, message):
             level_name = data["GenerationStart"]
 
         if "Key" in data:
-            name, zone, id = data["Key"]
+            name, dim, zone, id = data["Key"]
             if name in {"ArtifactWorldspawn", "ConsumableWorldspawn"}:
-                tracked_small_pickup_spawns.append((name, zone, id))
+                tracked_small_pickup_spawns.append((name, dim, zone, id))
             elif name in {"Cell", "CELL", "RetrieveBigItems", "FOG_TURBINE", "DATA_SPHERE"}:
-                tracked_big_pickup_spawns.append((name, zone, id))
+                tracked_big_pickup_spawns.append((name, dim, zone, id))
             else:
-                tracked_container_spawns.append((name, zone, id))
+                tracked_container_spawns.append((name, dim, zone, id))
 
         if "ResourcePack" in data:
-            name, zone, id, _size = data["ResourcePack"]
-            tracked_container_spawns.append((name, zone, id))
+            name, dim, zone, id, _size = data["ResourcePack"]
+            tracked_container_spawns.append((name, dim, zone, id))
 
         if "GenerationOverflowHash" in data:
             b = bytes(data["GenerationOverflowHash"])

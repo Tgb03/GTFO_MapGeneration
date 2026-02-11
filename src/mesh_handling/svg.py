@@ -102,6 +102,7 @@ def add_item(svg, item_name, pos, rotation, bounds):
 
 def add_static_items(svg, item_descriptors, bounds):
     for item in item_descriptors:
+        print(item["position"])
         svg = add_item(svg, item["image"], item["position"], item["rotation"], bounds)
 
     return svg
