@@ -25,10 +25,11 @@ This is in theory the true successor of WardenMapper. Kind of.
 
 ## How to setup:
 
-1. Download the project as a ZIP file and unzip it where you want to have it.
-2. Install Python
-3. Open a CMD in the project root folder
-4. Run either `py -m pip install -r requirements.txt` or `pip install -r requirements.txt` (first method via `py` launcher is preferrable on windows 10/11)
+Make sure you downloaded the project using either of the 2 previous methods. You will only need to do the next steps once. Step 3 may be required to be done again if the app is updated.
+
+1. Install Python
+2. Open a CMD in the project root folder
+3. Run either `py -m pip install -r requirements.txt` or `pip install -r requirements.txt` (first method via `py` launcher is preferrable on windows 10/11)
 
 If this command fails make sure pip installed and the environment variables are set for both Python and pip.
 
