@@ -9,6 +9,20 @@ This is in theory the true successor of WardenMapper. Kind of.
 1. Render maps that contain all resource spawns, some important items, cells and maybe a few other things.
 2. Build insanely fast container/cell maps.
 
+## How to download:
+
+#### Method 1 (simple & fast but annoying to update):
+
+1. Download the project as a ZIP file and unzip it where you want to have it.
+2. You are done. You can continue with setup but you will need to redownload every time you want to update it.
+
+#### Method 2 (using git):
+
+1. Download & Install Git.
+2. Open a CMD in the project root folder
+3. Run `git clone https://github.com/Tgb03/GTFO_MapGeneration.git`
+4. Now updating the project can be done by simply running `git pull` in the project root.
+
 ## How to setup:
 
 1. Download the project as a ZIP file and unzip it where you want to have it.
@@ -18,21 +32,6 @@ This is in theory the true successor of WardenMapper. Kind of.
 
 If this command fails make sure pip installed and the environment variables are set for both Python and pip.
 
-## How to generate container/cell maps
-
-1. Open a CMD in the project root folder.
-2. Run `py -m src.show_containers <level_name>` or `python -m src.show_containers <level_name>`
-
-Optionally you can directly specify a marker set hash and with these tags u can set which things are shown:
-
-| Argument | Effect |
-| --- | --- |
-| -h | shows the help message |
-| -c | disables showing containers, these are enabled by default |
-| -s | shows small pickups |
-| -b | shows big pickups |
-| -t [TEXT_SIZE] | change the text size |  
-| -i | Hide images and just put the text where the container is |  
 
 ## How to generate resource maps for ur current level
 
@@ -40,6 +39,8 @@ This works by reading the game's log file with your current level and seed. Simi
 
 1. Open a CMD in the project root folder.
 2. Run `py -m src.main` or `python -m src.main`
+
+If you wish to not read anything after just run `py -m src.main -s` or `python -m src.main -s` as this is the "best" while most other arguments are for customizing further.
 
 From now on the app runs in the background and awaits for you to press the hotkey `ctrl-shift-a` to generate the maps for your current level. Beware some specific stuff is not shown properly. You may still need to use the Logger to see which key is for which door in some levels or terminals, hsus etc.
 
@@ -59,6 +60,22 @@ Optionally you can also customize the exact behaviour of this:
 I really recommend using `-a` only with `-r` as `-r` allows u to just refresh the browser tab you want.
 
 Also `-s` will automatically enable automatic rendering as the server itself updates the data automatically. 
+
+## How to generate container/cell maps
+
+1. Open a CMD in the project root folder.
+2. Run `py -m src.show_containers <level_name>` or `python -m src.show_containers <level_name>`
+
+Optionally you can directly specify a marker set hash and with these tags u can set which things are shown:
+
+| Argument | Effect |
+| --- | --- |
+| -h | shows the help message |
+| -c | disables showing containers, these are enabled by default |
+| -s | shows small pickups |
+| -b | shows big pickups |
+| -t [TEXT_SIZE] | change the text size |  
+| -i | Hide images and just put the text where the container is |  
 
 ### Issues
 I: Sometimes pressing hotkey `Ctrl-Shift-A` does not open the file in browser or the dialog.\
