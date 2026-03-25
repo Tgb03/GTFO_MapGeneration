@@ -3,7 +3,6 @@ import json
 import os
 from ctypes import CFUNCTYPE, c_char_p, c_uint8, c_uint32, c_void_p
 from pathlib import Path
-from typing import Any
 
 from src.data_loading.item_name_convert import convert_name, reset_keys
 from src.data_loading.level import load_level
