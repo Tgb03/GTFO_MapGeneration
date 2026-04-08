@@ -22,12 +22,47 @@
                 position: relative;
             }
 
+            #status-banner {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                z-index: 100;
+                padding: 12px 20px;
+                box-sizing: border-box;
+                font-family: monospace;
+                font-size: 14px;
+                font-weight: bold;
+                text-align: center;
+                letter-spacing: 0.03em;
+            }
+
+            #status-banner.error {
+                display: block;
+                background: #c0392b;
+                color: #fff;
+            }
+
+            #status-banner.ok {
+                display: block;
+                background: #27ae60;
+                color: #fff;
+                animation: fadeout 2s forwards;
+                animation-delay: 2s;
+            }
+
+            @keyframes fadeout {
+                to { opacity: 0; display: none; }
+            }
+
             #viewport {
                 transform-origin: 0 0;
             }
         </style>
     </head>
     <body>
+        <div id="status-banner"></div>
         <div id="viewer">
             <div id="viewport">
                 <div id="svgHost"></div>
@@ -114,24 +149,39 @@
                 { passive: false },
             );
             
-            ws.onmessage = async () => {
-                const res = await fetch(`/current_svg/${id}`);
-                svgHost.innerHTML = await res.text();
+            const statusBanner = document.getElementById("status-banner");
+
+            function showError(message) {
+                statusBanner.className = "error";
+                statusBanner.innerHTML = message || "Unknown error";
+            }
+
+            function clearError() {
+                statusBanner.className = "";
+                statusBanner.textContent = "";
+            }
+
+            function applyFrame(data) {
+                if (data.error) {
+                    showError(data.error);
+                } else if (data.svg) {
+                    clearError();
+                    svgHost.innerHTML = data.svg;
+                }
+            }
+
+            ws.onmessage = (event) => {
+                applyFrame(JSON.parse(event.data));
             };
 
             async function poll() {
-                const res = await fetch(
-                    `/current_svg/${encodeURIComponent(id)}`,
-                );
+                const res = await fetch(`/current_frame/${encodeURIComponent(id)}`);
                 if (!res.ok) return;
-
-                const svg = await res.text();
-                console.log(svg)
-                if (svg.trim())
-                  svgHost.innerHTML = svg;
+                const data = JSON.parse(await res.text());
+                applyFrame(data);
             }
 
-            poll()
+            poll();
         </script>
     </body>
 </html>

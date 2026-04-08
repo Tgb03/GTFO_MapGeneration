@@ -1,10 +1,10 @@
 from fastapi import FastAPI, Request, WebSocket
-from fastapi.responses import HTMLResponse, StreamingResponse, PlainTextResponse
+from fastapi.responses import HTMLResponse, PlainTextResponse
 import json
 
 app = FastAPI()
 
-SVG_DATA = {}
+FRAME_DATA = {}  # id -> last payload (svg or error)
 clients = set()
 
 
@@ -12,27 +12,30 @@ clients = set()
 async def index():
     return HTMLResponse(open("index.html").read())
 
-@app.get("/current_svg/{id}")
-async def current_svg(id: str):
-    return PlainTextResponse(SVG_DATA.get(id, ""))
+@app.get("/current_frame/{id}")
+async def current_frame(id: str):
+    return PlainTextResponse(json.dumps(FRAME_DATA.get(id, {"svg": ""})))
 
 @app.post("/svg/{id}")
 async def update_svg(id: str, request: Request):
-    svg = (await request.body()).decode("utf-8")
-    SVG_DATA[id] = svg
+    raw = (await request.body()).decode("utf-8")
+    try:
+        body = json.loads(raw)
+        # Expect either {"svg": "<svg...>"} or {"error": "some message"}
+    except json.JSONDecodeError:
+        # Legacy: raw SVG string posted directly
+        body = {"svg": raw}
+    FRAME_DATA[id] = body
 
-    # Wrap SVG in JSON safely
-    payload = json.dumps({"id": id, "svg": svg})
-
+    payload = json.dumps({"id": id, **body})
     for ws in clients:
         await ws.send_text(payload)
 
     return {"ok": True}
 
 
-
 @app.websocket("/ws")
-async def ws(ws: WebSocket):
+async def ws_endpoint(ws: WebSocket):
     await ws.accept()
     clients.add(ws)
     try:

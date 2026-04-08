@@ -8,7 +8,7 @@ from src.data_loading.item_name_convert import convert_name, reset_keys
 from src.data_loading.level import load_level
 from src.mesh_handling.load_mesh import get_bounds_svg_multi
 from src.mesh_handling.svg import add_item
-from src.page_generator.open_generated import open_generated_svg
+from src.page_generator.open_generated import open_generated_svg, report_error
 from src.show_containers import add_text
 
 dll_relative_path = "../resources/gtfo_log_reader_core_64bit.dll"
@@ -46,6 +46,7 @@ lib.remove_callback.argtypes = [c_uint8, c_uint32]
 lib.remove_callback.restype = None
 
 
+session_seed = 0
 tracked_container_spawns = []
 tracked_small_pickup_spawns = []
 tracked_big_pickup_spawns = []
@@ -86,10 +87,11 @@ def get_data_from_arrs(map, overflow, counter_overflow, dimension, zone, id):
 
 def do_everything():
     global tracked_container_spawns, tracked_small_pickup_spawns, tracked_big_pickup_spawns
-    global marker_set, level_name, counter_containers
+    global marker_set, level_name, counter_containers, session_seed
 
     level_data = load_level(level_name, marker_set)
     if level_data is None:
+        report_error(f"Failed to load {level_name}_{marker_set} <br> Rendered image is previous map <br> SessionSeed: {session_seed}")
         return
 
     container_map = level_data["container_map"]
@@ -245,14 +247,24 @@ def my_event_callback(_context, message):
             pass
 
 
-def start_dll_thread():
-    # Add a callback with dummy values
-    code = 4  # e.g., SubscribeCode::Tokenizer
-    msg_type = 1  # e.g., SubscriptionType::JSON
-    channel_id = 1  # your app-defined channel ID
-    callback_fn_ptr = ctypes.cast(my_event_callback, c_void_p)
+@CALLBACK_TYPE
+def my_event_callback_tokenizer(_context, message):
+    global session_seed
+    
+    if message:
+        data = json.loads(message)
+        print(data)
+        
+        if "SelectExpedition" in data:
+            _, session_seed = data["SelectExpedition"]
 
-    lib.add_callback(code, msg_type, channel_id, 0, callback_fn_ptr)
+
+def start_dll_thread():
+    callback_fn_ptr_tokenizer = ctypes.cast(my_event_callback_tokenizer, c_void_p)
+    callback_fn_ptr_foresight = ctypes.cast(my_event_callback, c_void_p)
+
+    lib.add_callback(1, 1, 1, 0, callback_fn_ptr_tokenizer)
+    lib.add_callback(4, 1, 2, 0, callback_fn_ptr_foresight)
 
     # Start the listener thread
     lib.start_listener(log_folder_path.encode("utf-8"))

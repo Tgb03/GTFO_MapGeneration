@@ -18,7 +18,7 @@ def open_generated_svg(svg: str, id):
         if id not in id_set:
             id_set.add(id)
             webbrowser.open(f"http://{ip}:{port}/?id={id}")
-        requests.post(f"http://{ip}:{port}/svg/{id}", data=svg)
+        requests.post(f"http://{ip}:{port}/svg/{id}", json={"svg": svg})
         return
         
     svg_path = BASE_DIR / f"live_{id}.svg"
@@ -28,3 +28,8 @@ def open_generated_svg(svg: str, id):
     if reopen or id not in id_set:
         id_set.add(id)
         webbrowser.open(url)
+
+def report_error(message: str):
+    if use_html_server:
+        for id in id_set:
+            requests.post(f"http://{ip}:{port}/svg/{id}", json={"error": message})
