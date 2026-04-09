@@ -253,7 +253,6 @@ def my_event_callback_tokenizer(_context, message):
     
     if message:
         data = json.loads(message)
-        print(data)
         
         if "SelectExpedition" in data:
             _, session_seed = data["SelectExpedition"]
