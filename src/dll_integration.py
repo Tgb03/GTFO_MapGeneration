@@ -50,6 +50,7 @@ session_seed = 0
 tracked_container_spawns = []
 tracked_small_pickup_spawns = []
 tracked_big_pickup_spawns = []
+tracked_locks = {}
 marker_set = 0
 level_name = ""
 
@@ -209,7 +210,7 @@ def do_everything():
 @CALLBACK_TYPE
 def my_event_callback(_context, message):
     global tracked_container_spawns, tracked_small_pickup_spawns, tracked_big_pickup_spawns
-    global marker_set, level_name, counter_containers
+    global marker_set, level_name, counter_containers, tracked_locks
 
     if message:
         data = json.loads(message)
@@ -235,6 +236,10 @@ def my_event_callback(_context, message):
         if "ResourcePack" in data:
             name, dim, zone, id, _size = data["ResourcePack"]
             tracked_container_spawns.append((name, dim, zone, id))
+            
+        if "LockStateChange" in data:
+            dim, zone, id, lock_state = data["LockStateChange"]
+            tracked_locks[{dim, zone, id}] = lock_state
 
         if "GenerationOverflowHash" in data:
             b = bytes(data["GenerationOverflowHash"])

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 2 2">
+	<g id="layer-lock" transform="translate(-0.32 -0.1) scale(0.006 0.006)">
+		<rect fill="#bbbcbf" width="107" height="31.22" />
+		<polygon fill="#24506e" points="107 31.22 35.19 31.22 61.02 0 107 0 107 31.22" />
+		<rect fill="#282828" x="22.14" y="5.39" width="62.72" height="20.44" />
+		<path fill="#ffb533" d="M74.64 25.83H32.36l-10.22-10.22h0l10.22-10.22h42.29l10.22 10.22h0l-10.22 10.22Z" />
+	</g>
+</svg>

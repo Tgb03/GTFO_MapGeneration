@@ -76,6 +76,7 @@ def main():
     parser.add_argument("marker", type=str, nargs="?", default=0)
 
     parser.add_argument("-c", "--container-show", action="store_false", default=True, help="stop showing containers")
+    parser.add_argument("-l", "--lock-show", action="store_false", default=True, help="stop showing locks")
     parser.add_argument("-s", "--small-pickup-show", action="store_true", default=False, help="show small pickups")
     parser.add_argument("-b", "--big-pickup-show", action="store_true", default=False, help="show big pickups")
     parser.add_argument("-t", "--text-size", type=float, nargs="?", default=1, help="change the text size")
@@ -87,6 +88,7 @@ def main():
     marker = args.marker
     
     show_containers = args.container_show
+    show_locks = args.lock_show
     show_small_pickups = args.small_pickup_show
     show_big_pickups = args.big_pickup_show
     text_size = args.text_size
@@ -119,6 +121,13 @@ def main():
                     if not hide_images:
                         svg = add_item(svg, name, pos, 0, bounds)
                         pos = (pos[0], pos[1] + 1)
+                    
+                    if show_locks:
+                        lock_pos = (pos[0], pos[1] - 1)
+                        if "hack" in container["image"]:
+                            svg = add_item(svg, "Hacklock", lock_pos, 0, bounds)
+                        elif "break" in container["image"]:
+                            svg = add_item(svg, "Breaklock", lock_pos, 0, bounds)
                     
                     pos = (pos[0], pos[1] + 9)
                     svg = add_text(svg, pos, bounds, str(id), text_size)
