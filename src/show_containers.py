@@ -129,7 +129,7 @@ def main():
                         elif "break" in container["image"]:
                             svg = add_item(svg, "Breaklock", lock_pos, 0, bounds)
                     
-                    pos = (pos[0], pos[1] + 9)
+                    pos = (pos[0], pos[1] + 9.5)
                     svg = add_text(svg, pos, bounds, str(id), text_size)
 
         if show_small_pickups:
