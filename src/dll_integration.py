@@ -51,6 +51,7 @@ tracked_container_spawns = []
 tracked_small_pickup_spawns = []
 tracked_big_pickup_spawns = []
 tracked_locks = {}
+tracked_locks_overflow = {}
 marker_set = 0
 level_name = ""
 
@@ -67,7 +68,9 @@ def drop_first(word_string, n: int):
     return "_".join(word_string.split("_")[n:])
 
 
-def get_data_from_arrs(map, overflow, counter_overflow, dimension, zone, id):
+def get_data_from_arrs(map, overflow, counter_overflow, dimension, zone, id, do_locks = False):
+    global tracked_locks
+    
     data = None
     
     if id == -1:
@@ -76,19 +79,25 @@ def get_data_from_arrs(map, overflow, counter_overflow, dimension, zone, id):
             data = overflow.get(dimension, {}).get(zone, [])[in_list_id]
         except IndexError:
             data = None
+            
+        if do_locks and data is not None:
+            try:
+                data["lock"] = tracked_locks_overflow.get(dimension, {}).get(zone, [])[in_list_id]
+            except:
+                pass
         
         counter_overflow.setdefault(dimension, {})[zone] = in_list_id + 1
-        
-        print(f"{in_list_id}: {data}")
     else:
         data = map.get(dimension, {}).get(zone, {}).get(id, None)
+        if do_locks and data is not None:
+            data["lock"] = tracked_locks.get(dimension, {}).get(zone, {}).get(id, "")
     
     return data
 
 
 def do_everything():
     global tracked_container_spawns, tracked_small_pickup_spawns, tracked_big_pickup_spawns
-    global marker_set, level_name, counter_containers, session_seed
+    global marker_set, level_name, counter_containers, session_seed, tracked_locks
 
     level_data = load_level(level_name, marker_set)
     if level_data is None:
@@ -129,7 +138,8 @@ def do_everything():
                 overflow_counter_container, 
                 i, 
                 zone, 
-                id
+                id,
+                do_locks=True
             )
 
             if data is None:
@@ -140,12 +150,18 @@ def do_everything():
 
             offset = counter_containers.get(i, {}).get(zone, {}).get(id, 0)
 
-            counter_containers.setdefault(i, {}).setdefault(zone, {})[id] = offset + 1
+            if id != -1:
+                counter_containers.setdefault(i, {}).setdefault(zone, {})[id] = offset + 1
             pos_x, pos_y = data["position"]
             pos_x += offset * 1.6
             pos = (pos_x, pos_y)
 
             svg = add_item(svg, name, pos, data["rotation"], bounds)
+            
+            if "HackLock" == data.get("lock", ""):
+                svg = add_item(svg, "Hacklock", pos, 0, bounds)
+            elif "BreakLock" == data.get("lock", ""):
+                svg = add_item(svg, "Breaklock", pos, 0, bounds)
             
             if name == "Key0":
                 pos_y += 10
@@ -219,6 +235,8 @@ def my_event_callback(_context, message):
             tracked_container_spawns.clear()
             tracked_small_pickup_spawns.clear()
             tracked_big_pickup_spawns.clear()
+            tracked_locks.clear()
+            tracked_locks_overflow.clear()
             reset_keys()
             counter_containers = {}
             marker_set = 0
@@ -239,7 +257,10 @@ def my_event_callback(_context, message):
             
         if "LockStateChange" in data:
             dim, zone, id, lock_state = data["LockStateChange"]
-            tracked_locks[{dim, zone, id}] = lock_state
+            if id is not -1:
+                tracked_locks.setdefault(dim, {}).setdefault(zone, {})[id] = lock_state
+            else:
+                tracked_locks_overflow.setdefault(dim, {}).setdefault(zone, []).append(lock_state)
 
         if "GenerationOverflowHash" in data:
             b = bytes(data["GenerationOverflowHash"])
