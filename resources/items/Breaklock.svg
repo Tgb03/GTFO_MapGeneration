@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 2 2">
-	<g transform="translate(-0.3 -0.55) scale(0.01 0.01)">
+	<g id="layer-locks" transform="translate(-0.3 -0.55) scale(0.01 0.01)">
 		<rect fill="none" stroke="#333" stroke-miterlimit="10" stroke-width="10" x="10.03" y="5" width="39.93" height="51.85" rx="19.97" ry="19.97" />
 		<rect fill="#282828" y="30.71" width="60" height="60" />
 	</g>
