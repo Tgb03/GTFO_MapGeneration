@@ -57,6 +57,7 @@ Optionally you can also customize the exact behaviour of this:
 | -s | use an automatically updating server - try it out as it might be the best |
 | --ip | ip used by the server, default is "127.0.0.1" which does not allow external connections AT ALL. "0.0.0.0" does if u want to use your phone to view it |
 | -p | port used by the server, default is 8000 |
+| -l | show text for each hack lock above the locker |
 
 I really recommend using `-a` only with `-r` as `-r` allows u to just refresh the browser tab you want.
 

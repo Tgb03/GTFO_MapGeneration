@@ -74,17 +74,6 @@
           backdrop-filter:blur(4px)">
           Locks
         </button>
-        <button onclick="
-          const layers = document.getElementById('svgHost').querySelectorAll('#text-locks');
-          const on = layers[0].style.display === 'none';
-          layers.forEach(l => l.style.display = on ? '' : 'none');
-          this.style.opacity = on ? '1' : '0.4';
-        " style="position:fixed;top:64px;left:12px;z-index:50;
-          background:rgba(30,30,30,0.85);border:1px solid #555;color:#eee;
-          border-radius:6px;padding:5px 10px;font-size:24px;cursor:pointer;
-          backdrop-filter:blur(4px)">
-          Locks Text
-        </button>
         <div id="viewer">
             <div id="viewport">
                 <div id="svgHost"></div>

@@ -30,6 +30,7 @@ def main():
     parser.add_argument("-k", "--hotkey", default="ctrl+shift+a", help="change hotkey for generating map")
     parser.add_argument("-a", "--automatic-render", action="store_true", default=False, help="generate map automatically when generation ends")
     parser.add_argument("-r", "--stop-automatic-reopen", action="store_false", default=True, help="stop the app from automatically reopening the generated map every time, it will open it only once and you will have to manually refresh your tab")
+    parser.add_argument("-l", "--show-locks-text", action="store_true", default=False, help="show hack locks text so it is easier to spot")
     parser.add_argument("-d", "--dimension-shown", default=None, help="Show only a specific dimension, first is dimension 0")
     parser.add_argument("-s", "--use-server", default=False, action="store_true", help="Render stuff on a nicer looking html server")
     parser.add_argument("-p", "--port", default=8000, help="Port used by the server")
@@ -40,6 +41,7 @@ def main():
     open_generated.port = args.port
     open_generated.use_html_server = args.use_server
     open_generated.reopen = args.stop_automatic_reopen
+    dll_integration.show_locks_text = args.show_locks_text
     if args.use_server:
         dll_integration.automatic_render = True
     if args.dimension_shown is not None:

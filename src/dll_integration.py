@@ -58,6 +58,7 @@ level_name = ""
 
 automatic_render = False
 show_key_names = True
+show_locks_text = False
 force_dimension_render = None
 counter_containers = {}
 
@@ -160,7 +161,7 @@ def do_everything():
             
             if "HackLock" == data.get("lock", ""):
                 svg = add_item(svg, "Hacklock", pos, 0, bounds)
-                if offset == 0:
+                if show_locks_text and offset == 0:
                     new_pos = (pos[0], pos[1] + 10)
                     svg = add_text(svg, new_pos, bounds, "hack", 1, 242, 15, 242, "text-locks")
             elif "BreakLock" == data.get("lock", ""):
