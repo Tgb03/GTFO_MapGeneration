@@ -47,18 +47,18 @@ def choose_marker(level_name):
             print("Please enter a number.")
 
 
-def add_text(svg, pos, bounds, text, text_size):
+def add_text(svg, pos, bounds, text, text_size, r=127, g=255, b=127, layer="text-layer"):
     (pos_x, pos_y) = pos
 
     try:
         item_svg = load_item_svg("text")
         inner = extract_inner_svg(item_svg)
-        inner = inner.format(text=text, size=str(text_size))
+        inner = inner.format(text=text, size=str(text_size), r=r, g=g, b=b)
 
         pos_x, pos_y = to_svg_pos([pos_x, pos_y], bounds[0][0], bounds[1][1])
 
         group = f"""
-        <g transform="translate({pos_x}, {pos_y}) rotate(0)">
+        <g id="{layer}" transform="translate({pos_x}, {pos_y}) rotate(0)">
             {inner}
         </g>
         """

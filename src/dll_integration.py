@@ -160,9 +160,12 @@ def do_everything():
             
             if "HackLock" == data.get("lock", ""):
                 svg = add_item(svg, "Hacklock", pos, 0, bounds)
+                if offset == 0:
+                    new_pos = (pos[0], pos[1] + 10)
+                    svg = add_text(svg, new_pos, bounds, "hack", 1, 242, 15, 242, "text-locks")
             elif "BreakLock" == data.get("lock", ""):
                 svg = add_item(svg, "Breaklock", pos, 0, bounds)
-            
+                
             if name == "Key0":
                 pos_y += 10
                 svg = add_text(svg, (pos_x, pos_y), bounds, old_name, 1)
