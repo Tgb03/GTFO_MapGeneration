@@ -92,7 +92,7 @@
             const params = new URLSearchParams(window.location.search);
             const id = params.get("id") || 0;
             const evtSource = new EventSource("/events");
-            const ws = new WebSocket("ws://127.0.0.1:8000/ws");
+            const ws = new WebSocket(wsUrl);
 
             /* ---------- STATE ---------- */
             let scale = 1;
